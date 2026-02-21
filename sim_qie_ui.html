@@ -79,7 +79,7 @@
       border-radius:12px;
       background: linear-gradient(180deg, rgba(122,162,255,0.95) 0%, rgba(92,130,255,0.85) 100%);
       color:#06102a;
-      font-weight:700;
+      font-weight:800;
       font-size:12.5px;
       box-shadow: 0 10px 18px rgba(122,162,255,0.18);
     }
@@ -89,12 +89,14 @@
       color: var(--text);
       border: 1px solid rgba(122,162,255,0.18);
       box-shadow:none;
+      font-weight:700;
     }
     .btn.danger{
       background: rgba(251,113,133,0.16);
       color: var(--text);
       border:1px solid rgba(251,113,133,0.35);
       box-shadow:none;
+      font-weight:700;
     }
 
     .kpis{
@@ -111,7 +113,7 @@
       border:1px solid rgba(122,162,255,0.14);
     }
     .kpi .k{font-size:11px; color:var(--muted)}
-    .kpi .v{font-size:18px; font-weight:800; margin-top:4px}
+    .kpi .v{font-size:18px; font-weight:900; margin-top:4px}
     .kpi .s{font-size:11px; color:var(--muted); margin-top:4px}
 
     table{width:100%; border-collapse: collapse; font-size:12px}
@@ -124,21 +126,20 @@
       border:1px solid rgba(122,162,255,0.20); color:var(--muted);
     }
     .status{
-      font-weight:800;
+      font-weight:900;
       padding:4px 10px;
       border-radius:999px;
       font-size:11px;
       border:1px solid rgba(255,255,255,0.18);
       background: rgba(5,8,18,0.45);
     }
-    .status.good{border-color: rgba(74,222,128,0.38); color: var(--good)}
-    .status.bad{border-color: rgba(251,113,133,0.45); color: var(--bad)}
-    .status.warn{border-color: rgba(251,191,36,0.45); color: var(--warn)}
+    .status.good{border-color: rgba(74,222,128,0.38); color: #4ade80}
+    .status.bad{border-color: rgba(251,113,133,0.45); color: #fb7185}
+    .status.warn{border-color: rgba(251,191,36,0.45); color: #fbbf24}
     .hint{color:var(--muted); font-size:12px; line-height:1.4}
     .small{font-size:11px; color:var(--muted)}
     .sep{height:1px; background: rgba(122,162,255,0.10); margin:10px 0}
 
-    /* SVG look */
     .schem{
       width:100%;
       height:auto;
@@ -153,104 +154,87 @@
 </head>
 <body>
 <header>
-  <h1>QIE Bell / CHSH Simulator — Poisson coincidences + “beam path” UI</h1>
-  <p>Adjust HWP + QP + analyzers. Take VV/HV/VH/HH counts, compute E(α,β), and run a CHSH S measurement with Poisson noise + background.</p>
+  <h1>QIE Bell / CHSH Simulator — Poisson coincidences + simplified “beam path” UI</h1>
+  <p>Now includes single-shot coincidences for VV / HV / VH / HH, plus E(α,β) and CHSH S.</p>
 </header>
 
 <div class="wrap">
   <div class="grid">
-    <!-- LEFT: Beam path schematic -->
+    <!-- LEFT: Simplified beam path schematic -->
     <div class="card">
       <div class="hd">
-        <div class="title">Beam path (schematic UI)</div>
+        <div class="title">Beam path (simplified)</div>
         <div class="chip mono" id="schemLabel">HWP: 22.50° · QP: 0.0° → φ=0.00 rad · α: -45.0° · β: -22.5°</div>
       </div>
       <div class="bd">
-        <svg class="schem" viewBox="0 0 980 360" aria-label="Beam path schematic">
-          <!-- safety enclosure -->
-          <rect x="40" y="70" width="690" height="220" rx="10"
-                fill="rgba(17,26,51,0.35)" stroke="rgba(122,162,255,0.25)" stroke-width="2"/>
-          <text x="545" y="92" fill="rgba(231,236,255,0.9)" font-size="14" font-weight="700">safety enclosure</text>
+        <svg class="schem" viewBox="0 0 980 320" aria-label="Beam path schematic">
+          <!-- enclosure -->
+          <rect x="50" y="60" width="700" height="200" rx="12"
+                fill="rgba(17,26,51,0.30)" stroke="rgba(122,162,255,0.25)" stroke-width="2"/>
+          <text x="585" y="84" fill="rgba(231,236,255,0.9)" font-size="14" font-weight="800">safety enclosure</text>
 
-          <!-- purple 405 nm vertical beam -->
-          <line x1="110" y1="90" x2="110" y2="255"
-                stroke="rgba(190,120,255,0.95)" stroke-width="3" stroke-dasharray="6 6"/>
-          <text x="78" y="185" fill="rgba(190,120,255,0.95)" font-size="12" transform="rotate(-90 78,185)">
-            405 nm beam
-          </text>
+          <!-- laser + lens -->
+          <rect x="85" y="130" width="48" height="26" rx="6"
+                fill="rgba(190,120,255,0.25)" stroke="rgba(190,120,255,0.70)" stroke-width="2"/>
+          <text x="85" y="122" fill="rgba(231,236,255,0.9)" font-size="12">laser diode</text>
+          <ellipse cx="160" cy="143" rx="16" ry="8"
+                fill="rgba(231,236,255,0.08)" stroke="rgba(231,236,255,0.35)" stroke-width="2"/>
+          <text x="146" y="172" fill="rgba(231,236,255,0.85)" font-size="12">lens</text>
 
-          <!-- laser diode + lens -->
-          <rect x="92" y="80" width="36" height="18" rx="4" fill="rgba(190,120,255,0.25)" stroke="rgba(190,120,255,0.65)"/>
-          <text x="140" y="95" fill="rgba(231,236,255,0.9)" font-size="12">laser diode</text>
-          <ellipse cx="110" cy="125" rx="14" ry="7" fill="rgba(231,236,255,0.08)" stroke="rgba(231,236,255,0.35)"/>
-          <text x="140" y="130" fill="rgba(231,236,255,0.9)" font-size="12">lens (focuses at BBO)</text>
+          <!-- 405 nm pump beam -->
+          <line x1="135" y1="143" x2="360" y2="143"
+                stroke="rgba(190,120,255,0.95)" stroke-width="3.2" stroke-dasharray="7 7"/>
+          <text x="215" y="132" fill="rgba(190,120,255,0.95)" font-size="12">405 nm pump</text>
 
-          <!-- mirror -->
-          <line x1="85" y1="260" x2="135" y2="230" stroke="rgba(231,236,255,0.75)" stroke-width="4"/>
-          <text x="52" y="285" fill="rgba(231,236,255,0.85)" font-size="12" transform="rotate(-35 52,285)">mirror</text>
+          <!-- HWP -->
+          <rect x="230" y="122" width="18" height="42"
+                fill="rgba(231,236,255,0.10)" stroke="rgba(231,236,255,0.55)" stroke-width="2"/>
+          <text x="220" y="114" fill="rgba(231,236,255,0.9)" font-size="12">HWP</text>
+          <text x="212" y="178" fill="rgba(122,162,255,0.95)" font-size="11" font-weight="800" id="hwpText">22.50°</text>
 
-          <!-- purple horizontal beam from mirror to BBO -->
-          <line x1="110" y1="245" x2="330" y2="245"
-                stroke="rgba(190,120,255,0.95)" stroke-width="3" stroke-dasharray="6 6"/>
+          <!-- QP -->
+          <rect x="300" y="122" width="12" height="42"
+                fill="rgba(231,236,255,0.08)" stroke="rgba(231,236,255,0.45)" stroke-width="2"/>
+          <text x="293" y="114" fill="rgba(231,236,255,0.9)" font-size="12">QP</text>
+          <text x="285" y="178" fill="rgba(122,162,255,0.95)" font-size="11" font-weight="800" id="qpText">0.0°</text>
 
-          <!-- HWP element -->
-          <rect x="190" y="226" width="16" height="40" fill="rgba(231,236,255,0.10)" stroke="rgba(231,236,255,0.55)"/>
-          <text x="178" y="220" fill="rgba(231,236,255,0.9)" font-size="12">HWP</text>
-          <text x="168" y="275" fill="rgba(122,162,255,0.95)" font-size="11" font-weight="700" id="hwpText">22.50°</text>
+          <!-- BBO -->
+          <rect x="380" y="116" width="26" height="54"
+                fill="rgba(122,162,255,0.20)" stroke="rgba(122,162,255,0.70)" stroke-width="2"/>
+          <text x="362" y="108" fill="rgba(231,236,255,0.9)" font-size="12">BBO crystal</text>
 
-          <!-- QP element -->
-          <rect x="260" y="226" width="10" height="40" fill="rgba(231,236,255,0.08)" stroke="rgba(231,236,255,0.45)"/>
-          <text x="252" y="220" fill="rgba(231,236,255,0.9)" font-size="12">QP</text>
-          <text x="242" y="275" fill="rgba(122,162,255,0.95)" font-size="11" font-weight="700" id="qpText">0.0°</text>
-
-          <!-- BBO crystal + iris -->
-          <rect x="360" y="225" width="22" height="42" fill="rgba(122,162,255,0.20)" stroke="rgba(122,162,255,0.65)"/>
-          <text x="348" y="210" fill="rgba(231,236,255,0.9)" font-size="12">BBO crystal</text>
-          <rect x="410" y="232" width="8" height="28" fill="rgba(231,236,255,0.12)" stroke="rgba(231,236,255,0.45)"/>
-          <text x="404" y="210" fill="rgba(231,236,255,0.9)" font-size="12">iris</text>
-
-          <!-- red 808 nm cone beams -->
-          <line x1="382" y1="245" x2="740" y2="205"
-                stroke="rgba(255,90,90,0.90)" stroke-width="2.8" stroke-dasharray="8 6"/>
-          <line x1="382" y1="245" x2="740" y2="285"
-                stroke="rgba(255,90,90,0.90)" stroke-width="2.8" stroke-dasharray="8 6"/>
-          <text x="485" y="232" fill="rgba(255,140,140,0.95)" font-size="12">808 nm cone (~6°)</text>
-
-          <!-- beam stop -->
-          <path d="M620 255 q 25 20 55 10" fill="none" stroke="rgba(0,0,0,0.7)" stroke-width="10" stroke-linecap="round"/>
-          <text x="603" y="298" fill="rgba(231,236,255,0.9)" font-size="12">Beam Stop</text>
-
-          <!-- detector-side optics -->
-          <text x="760" y="170" fill="rgba(231,236,255,0.9)" font-size="12">longpass filter</text>
-          <rect x="745" y="178" width="10" height="52" fill="rgba(231,236,255,0.12)" stroke="rgba(231,236,255,0.45)"/>
-          <text x="770" y="220" fill="rgba(231,236,255,0.9)" font-size="12">polarizer</text>
+          <!-- downconversion cone (two arms) -->
+          <line x1="406" y1="143" x2="780" y2="110"
+                stroke="rgba(255,90,90,0.90)" stroke-width="3" stroke-dasharray="9 6"/>
+          <line x1="406" y1="143" x2="780" y2="210"
+                stroke="rgba(255,90,90,0.90)" stroke-width="3" stroke-dasharray="9 6"/>
+          <text x="520" y="140" fill="rgba(255,140,140,0.95)" font-size="12">808 nm (two arms)</text>
 
           <!-- polarizers (two arms) -->
-          <rect x="790" y="190" width="8" height="30" fill="rgba(231,236,255,0.10)" stroke="rgba(231,236,255,0.55)"/>
-          <rect x="790" y="255" width="8" height="30" fill="rgba(231,236,255,0.10)" stroke="rgba(231,236,255,0.55)"/>
-          <text x="806" y="205" fill="rgba(122,162,255,0.95)" font-size="11" font-weight="700" id="alphaText">α=-45.0°</text>
-          <text x="806" y="270" fill="rgba(122,162,255,0.95)" font-size="11" font-weight="700" id="betaText">β=-22.5°</text>
+          <rect x="800" y="95" width="10" height="32"
+                fill="rgba(231,236,255,0.10)" stroke="rgba(231,236,255,0.60)" stroke-width="2"/>
+          <rect x="800" y="195" width="10" height="32"
+                fill="rgba(231,236,255,0.10)" stroke="rgba(231,236,255,0.60)" stroke-width="2"/>
+          <text x="817" y="113" fill="rgba(231,236,255,0.85)" font-size="12">polarizer</text>
+          <text x="817" y="213" fill="rgba(231,236,255,0.85)" font-size="12">polarizer</text>
+          <text x="817" y="128" fill="rgba(122,162,255,0.95)" font-size="11" font-weight="800" id="alphaText">α=-45.0°</text>
+          <text x="817" y="228" fill="rgba(122,162,255,0.95)" font-size="11" font-weight="800" id="betaText">β=-22.5°</text>
 
-          <!-- iris and lens -->
-          <rect x="812" y="198" width="6" height="16" fill="rgba(231,236,255,0.12)" stroke="rgba(231,236,255,0.45)"/>
-          <rect x="812" y="263" width="6" height="16" fill="rgba(231,236,255,0.12)" stroke="rgba(231,236,255,0.45)"/>
-          <ellipse cx="840" cy="206" rx="10" ry="6" fill="rgba(231,236,255,0.08)" stroke="rgba(231,236,255,0.35)"/>
-          <ellipse cx="840" cy="271" rx="10" ry="6" fill="rgba(231,236,255,0.08)" stroke="rgba(231,236,255,0.35)"/>
-          <text x="854" y="208" fill="rgba(231,236,255,0.8)" font-size="11">iris · lens</text>
+          <!-- fibres to APD -->
+          <path d="M810 112 C 860 95, 900 85, 930 85" fill="none" stroke="rgba(231,236,255,0.40)" stroke-width="2.5"/>
+          <path d="M810 212 C 860 230, 900 245, 930 245" fill="none" stroke="rgba(231,236,255,0.40)" stroke-width="2.5"/>
+          <text x="865" y="78" fill="rgba(231,236,255,0.8)" font-size="11">fibre</text>
 
-          <!-- fibres and APD box -->
-          <path d="M852 206 C 900 190, 920 160, 940 130" fill="none" stroke="rgba(231,236,255,0.45)" stroke-width="2"/>
-          <path d="M852 271 C 900 285, 920 305, 940 320" fill="none" stroke="rgba(231,236,255,0.45)" stroke-width="2"/>
-          <rect x="910" y="110" width="62" height="56" rx="8"
-                fill="rgba(0,0,0,0.70)" stroke="rgba(255,220,120,0.55)" stroke-width="2"/>
-          <text x="922" y="135" fill="rgba(255,220,120,0.95)" font-size="12" font-weight="800">APD</text>
-          <text x="922" y="152" fill="rgba(255,220,120,0.95)" font-size="12" font-weight="800">Detector</text>
-          <text x="882" y="124" fill="rgba(231,236,255,0.8)" font-size="11">fibre</text>
-          <text x="882" y="138" fill="rgba(231,236,255,0.8)" font-size="11">optics</text>
+          <!-- APD block -->
+          <rect x="925" y="60" width="50" height="70" rx="10"
+                fill="rgba(0,0,0,0.70)" stroke="rgba(255,220,120,0.60)" stroke-width="2.5"/>
+          <text x="938" y="88" fill="rgba(255,220,120,0.95)" font-size="12" font-weight="900">APD</text>
+          <text x="932" y="104" fill="rgba(255,220,120,0.95)" font-size="12" font-weight="900">Detector</text>
 
           <!-- readout arrow -->
-          <line x1="910" y1="108" x2="260" y2="60" stroke="rgba(231,236,255,0.55)" stroke-width="2" marker-end="url(#arrow)"/>
-          <text x="330" y="52" fill="rgba(231,236,255,0.8)" font-size="12">to readout board and computer</text>
+          <line x1="940" y1="58" x2="300" y2="28"
+                stroke="rgba(231,236,255,0.55)" stroke-width="2.2" marker-end="url(#arrow)"/>
+          <text x="330" y="24" fill="rgba(231,236,255,0.8)" font-size="12">to readout board and computer</text>
 
           <defs>
             <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
@@ -261,10 +245,11 @@
 
         <div class="sep"></div>
         <div class="hint">
-          This schematic is just a UI metaphor: the “physics” is simulated using the state
-          <span class="mono">cos(θ)|HH⟩ + e^{iφ} sin(θ)|VV⟩</span>,
-          coincidences are sampled as <span class="mono">Poisson( R_pair·T·P_VV + R_bg·T )</span>,
-          and <span class="mono">E</span>, <span class="mono">S</span> are computed from the four (or sixteen) settings.
+          Coincidence configurations at analyzer settings (α,β):
+          <span class="mono">VV=(α,β)</span>,
+          <span class="mono">HV=(α+90°,β)</span>,
+          <span class="mono">VH=(α,β+90°)</span>,
+          <span class="mono">HH=(α+90°,β+90°)</span>.
         </div>
       </div>
     </div>
@@ -334,8 +319,15 @@
 
         <div class="sep"></div>
 
+        <!-- NEW: individual coincidence buttons -->
         <div class="row">
-          <button class="btn" id="btnMeasureVV">Measure N(α,β) (VV)</button>
+          <button class="btn" id="btnMeasureVV">Measure N(VV)=N(α,β)</button>
+          <button class="btn" id="btnMeasureHV">Measure N(HV)=N(α+90,β)</button>
+          <button class="btn" id="btnMeasureVH">Measure N(VH)=N(α,β+90)</button>
+          <button class="btn" id="btnMeasureHH">Measure N(HH)=N(α+90,β+90)</button>
+        </div>
+        <div class="row" style="margin-top:8px">
+          <button class="btn secondary" id="btnMeasureAll">Measure all 4 (VV/HV/VH/HH)</button>
           <button class="btn" id="btnMeasureE">Measure E(α,β) (VV/HH/HV/VH)</button>
           <button class="btn" id="btnMeasureS">Run CHSH S (a,a′,b,b′)</button>
         </div>
@@ -368,14 +360,13 @@
         <div class="sep"></div>
 
         <div class="hint">
-          <b>Notes:</b> “VV” here means both analyzers project onto their transmission axes (angles α, β).
-          The other configurations are generated by +90° rotations, and the E estimator uses the manual-style
-          background correction with <span class="mono">-4C</span> in the denominator.
+          <b>Estimator details:</b> E(α,β) uses the four coincidence counts and subtracts background via
+          <span class="mono">-4C</span> in the denominator where <span class="mono">C = R_bg·T</span>.
         </div>
       </div>
     </div>
 
-    <!-- FULL WIDTH: Log -->
+    <!-- Log -->
     <div class="card" style="grid-column: 1 / -1;">
       <div class="hd">
         <div class="title">Measurement log</div>
@@ -405,12 +396,10 @@
 </div>
 
 <script>
-  // ---------- utilities ----------
   const DEG = Math.PI / 180;
   const clamp = (x,a,b)=>Math.max(a,Math.min(b,x));
   const fmt = (x, d=4)=> (Number.isFinite(x) ? x.toFixed(d) : "NaN");
 
-  // seeded PRNG (mulberry32)
   function mulberry32(seed){
     let t = seed >>> 0;
     return function(){
@@ -421,7 +410,6 @@
     };
   }
   function boxMuller(rand){
-    // standard normal
     let u = 0, v = 0;
     while(u === 0) u = rand();
     while(v === 0) v = rand();
@@ -430,23 +418,26 @@
   function poisson(lam, rand){
     if(lam <= 0) return 0;
     if(lam < 30){
-      // Knuth
       const L = Math.exp(-lam);
-      let k = 0;
-      let p = 1;
-      do {
-        k++;
-        p *= rand();
-      } while(p > L);
+      let k = 0, p = 1;
+      do { k++; p *= rand(); } while(p > L);
       return k - 1;
     } else {
-      // Normal approximation for speed/stability
       const x = lam + Math.sqrt(lam) * boxMuller(rand);
       return Math.max(0, Math.round(x));
     }
   }
 
-  // ---------- physics model ----------
+  function sigmaE_from_counts(E, den, nVV, nHH, nHV, nVH){
+    if(!Number.isFinite(E) || den <= 0) return NaN;
+    const v = den;
+    // Poisson variance ≈ count (use +1 guard if you want)
+    const a = (1 - E) / v;
+    const b = (1 + E) / v;
+    const varE = (a*a) * (nVV + nHH) + (b*b) * (nHV + nVH);
+    return Math.sqrt(Math.max(varE, 0));
+  }
+
   function P_VV(alpha, beta, theta, phi, visibility){
     const sa = Math.sin(alpha), ca = Math.cos(alpha);
     const sb = Math.sin(beta),  cb = Math.cos(beta);
@@ -461,8 +452,8 @@
   }
 
   function E_theory(alpha, beta, theta, phi){
-    // compact closed form correlation
-    return (Math.cos(2*alpha)*Math.cos(2*beta) + Math.sin(2*theta)*Math.sin(2*alpha)*Math.sin(2*beta)*Math.cos(phi));
+    return (Math.cos(2*alpha)*Math.cos(2*beta) +
+            Math.sin(2*theta)*Math.sin(2*alpha)*Math.sin(2*beta)*Math.cos(phi));
   }
 
   function measure_counts(alpha, beta, theta, phi, pairRate, T, bgRate, visibility, rand){
@@ -472,26 +463,24 @@
   }
 
   function measure_E(alpha, beta, theta, phi, pairRate, T, bgRate, visibility, rand){
-    // VV, HH, HV, VH using +90° mapping
-    const VV = measure_counts(alpha,            beta,            theta, phi, pairRate, T, bgRate, visibility, rand);
-    const HH = measure_counts(alpha + Math.PI/2,beta + Math.PI/2,theta, phi, pairRate, T, bgRate, visibility, rand);
-    const HV = measure_counts(alpha + Math.PI/2,beta,            theta, phi, pairRate, T, bgRate, visibility, rand);
-    const VH = measure_counts(alpha,            beta + Math.PI/2,theta, phi, pairRate, T, bgRate, visibility, rand);
+    const VV = measure_counts(alpha,             beta,             theta, phi, pairRate, T, bgRate, visibility, rand);
+    const HH = measure_counts(alpha + Math.PI/2, beta + Math.PI/2, theta, phi, pairRate, T, bgRate, visibility, rand);
+    const HV = measure_counts(alpha + Math.PI/2, beta,             theta, phi, pairRate, T, bgRate, visibility, rand);
+    const VH = measure_counts(alpha,             beta + Math.PI/2, theta, phi, pairRate, T, bgRate, visibility, rand);
 
     const C = bgRate * T;
     const num = (VV.N + HH.N - HV.N - VH.N);
     const den = (VV.N + HH.N + HV.N + VH.N - 4*C);
     const E = (den > 0) ? (num / den) : NaN;
 
-    return { E, C, counts: {VV, HH, HV, VH}, num, den };
+    const sigmaE = sigmaE_from_counts(E, den, VV.N, HH.N, HV.N, VH.N);
+
+    return { E, sigmaE, C, counts: {VV, HH, HV, VH}, num, den };
   }
 
   function measure_S(theta, phi, pairRate, T, bgRate, visibility, rand){
-    // CHSH defaults
-    const a   = -45 * DEG;
-    const ap  =   0 * DEG;
-    const b   = -22.5 * DEG;
-    const bp  = +22.5 * DEG;
+    const a   = -45 * DEG, ap  =  0 * DEG;
+    const b   = -22.5 * DEG, bp = +22.5 * DEG;
 
     const Eab   = measure_E(a,  b,  theta, phi, pairRate, T, bgRate, visibility, rand);
     const Eabp  = measure_E(a,  bp, theta, phi, pairRate, T, bgRate, visibility, rand);
@@ -499,14 +488,15 @@
     const Eapbp = measure_E(ap, bp, theta, phi, pairRate, T, bgRate, visibility, rand);
 
     const S = Eab.E - Eabp.E + Eapb.E + Eapbp.E;
+    const Sth = E_theory(a,b,theta,phi) - E_theory(a,bp,theta,phi) + E_theory(ap,b,theta,phi) + E_theory(ap,bp,theta,phi);
 
-    const Sth =
-      E_theory(a,b,theta,phi) - E_theory(a,bp,theta,phi) + E_theory(ap,b,theta,phi) + E_theory(ap,bp,theta,phi);
+    const sigmaS = Math.sqrt(
+        Eab.sigmaE**2 + Eabp.sigmaE**2 + Eapb.sigmaE**2 + Eapbp.sigmaE**2
+    );
 
-    return { S, Sth, Es: { "ab": Eab, "ab'": Eabp, "a'b": Eapb, "a'b'": Eapbp } };
+    return { S, sigmaS, Sth, Es: { "ab": Eab, "ab'": Eabp, "a'b": Eapb, "a'b'": Eapbp } };
   }
 
-  // ---------- UI state ----------
   const el = (id)=>document.getElementById(id);
 
   const ui = {
@@ -541,6 +531,10 @@
     logBody: el("logBody"),
 
     btnMeasureVV: el("btnMeasureVV"),
+    btnMeasureHV: el("btnMeasureHV"),
+    btnMeasureVH: el("btnMeasureVH"),
+    btnMeasureHH: el("btnMeasureHH"),
+    btnMeasureAll: el("btnMeasureAll"),
     btnMeasureE: el("btnMeasureE"),
     btnMeasureS: el("btnMeasureS"),
     btnReset: el("btnReset"),
@@ -556,17 +550,15 @@
     const alphaDeg = parseFloat(ui.alphaDeg.value);
     const betaDeg  = parseFloat(ui.betaDeg.value);
 
-    // simple mapping knobs → state parameters
-    const theta = (2 * hwpDeg) * DEG;         // θ = 2·HWP
-    const k = 0.12;                            // rad/deg (tune to taste)
-    const phi0 = 0.0;
-    const phi = phi0 + k * qpDeg;              // φ = φ0 + k·tilt
+    // mapping knobs → state params
+    const theta = (2 * hwpDeg) * DEG;   // θ = 2·HWP
+    const k = 0.12;                    // rad/deg (tune)
+    const phi = 0.0 + k * qpDeg;
 
     const pairRate = parseFloat(ui.pairRate.value);
     const bgRate = parseFloat(ui.bgRate.value);
     const T = parseFloat(ui.timeS.value);
     const visibility = parseFloat(ui.vis.value);
-
     const seed = parseInt(ui.seed.value || "1", 10);
 
     return {
@@ -602,12 +594,10 @@
     ui.schemLabel.textContent =
       `HWP: ${p.hwpDeg.toFixed(2)}° · QP: ${p.qpDeg.toFixed(1)}° → φ=${p.phi.toFixed(2)} rad · α: ${p.alphaDeg.toFixed(1)}° · β: ${p.betaDeg.toFixed(1)}°`;
 
-    // theoretical S for the current HWP/QP (using CHSH default angles)
     const a=-45*DEG, ap=0*DEG, b=-22.5*DEG, bp=+22.5*DEG;
     const Sth = E_theory(a,b,p.theta,p.phi) - E_theory(a,bp,p.theta,p.phi) + E_theory(ap,b,p.theta,p.phi) + E_theory(ap,bp,p.theta,p.phi);
     ui.kpiSth.textContent = fmt(Sth, 4);
 
-    // log table
     ui.logBody.innerHTML = log.slice().reverse().map((r, idx) => {
       const i = log.length - idx;
       return `
@@ -628,21 +618,31 @@
     render();
   }
 
-  function runMeasureVV(){
+  // NEW: generic single-config coincidence measurement
+  function runMeasureConfig(label, aOffDeg, bOffDeg){
     const p = getParams();
     const rand = mulberry32(p.seed + log.length * 1337);
 
-    const m = measure_counts(p.alpha, p.beta, p.theta, p.phi, p.pairRate, p.T, p.bgRate, p.visibility, rand);
+    const a = p.alpha + aOffDeg * DEG;
+    const b = p.beta  + bOffDeg * DEG;
+    const m = measure_counts(a, b, p.theta, p.phi, p.pairRate, p.T, p.bgRate, p.visibility, rand);
 
-    ui.kpiLast.textContent = `N(VV) = ${m.N}`;
+    ui.kpiLast.textContent = `N(${label}) = ${m.N}`;
     ui.kpiLast2.textContent = `mean≈${m.mean.toFixed(2)} (signal≈${m.meanSignal.toFixed(2)}, bg≈${m.meanBg.toFixed(2)})`;
 
     pushLog({
-      type: "VV",
-      settings: `α=${p.alphaDeg.toFixed(1)}°, β=${p.betaDeg.toFixed(1)}°`,
+      type: `N(${label})`,
+      settings: `α=${p.alphaDeg.toFixed(1)}°, β=${p.betaDeg.toFixed(1)}° | using (${(p.alphaDeg+aOffDeg).toFixed(1)}°, ${(p.betaDeg+bOffDeg).toFixed(1)}°)`,
       result: `N=${m.N} (mean≈${m.mean.toFixed(2)})`,
       params: `Rpair=${p.pairRate}, Rbg=${p.bgRate}, T=${p.T}, vis=${p.visibility.toFixed(3)}, seed=${p.seed}`
     });
+  }
+
+  function runMeasureAllFour(){
+    runMeasureConfig("VV", 0, 0);
+    runMeasureConfig("HV", 90, 0);
+    runMeasureConfig("VH", 0, 90);
+    runMeasureConfig("HH", 90, 90);
   }
 
   function runMeasureE(){
@@ -650,10 +650,9 @@
     const rand = mulberry32(p.seed + log.length * 1337);
 
     const out = measure_E(p.alpha, p.beta, p.theta, p.phi, p.pairRate, p.T, p.bgRate, p.visibility, rand);
-
     const VV = out.counts.VV.N, HH = out.counts.HH.N, HV = out.counts.HV.N, VH = out.counts.VH.N;
 
-    ui.kpiLast.textContent = `E(α,β) = ${fmt(out.E,4)}`;
+    ui.kpiLast.textContent = `E(α,β) = ${fmt(out.E,4)} ± ${fmt(out.sigmaE,4)} (1σ)`;
     ui.kpiLast2.textContent = `VV=${VV}, HH=${HH}, HV=${HV}, VH=${VH}, C=${out.C.toFixed(2)}`;
 
     pushLog({
@@ -670,10 +669,9 @@
 
     const out = measure_S(p.theta, p.phi, p.pairRate, p.T, p.bgRate, p.visibility, rand);
 
-    ui.kpiSmeas.textContent = fmt(out.S, 4);
-
-    const st = setKpiStatus(out.S);
-    ui.kpiSstatus.innerHTML = `<span class="status ${st.cls}">${st.text}</span>`;
+    ui.kpiSmeas.textContent = `${fmt(out.S,4)} ± ${fmt(out.sigmaS,4)}`;
+    const z = (Math.abs(out.S) - 2.0) / out.sigmaS;
+    ui.kpiSstatus.innerHTML = `<span class="status ${z>0? "good":"bad"}">z ≈ ${fmt(z,2)}σ</span>`;
 
     const Es = out.Es;
     ui.kpiLast.textContent = `CHSH run complete`;
@@ -688,8 +686,8 @@
   }
 
   function reset(){
-    ui.hwpDeg.value = "22.50";    // Bell-ish: θ=45°
-    ui.qpDeg.value = "0.0";       // φ≈0
+    ui.hwpDeg.value = "22.50";
+    ui.qpDeg.value = "0.0";
     ui.alphaDeg.value = "-45.0";
     ui.betaDeg.value  = "-22.5";
     ui.pairRate.value = "5000";
@@ -705,10 +703,7 @@
     render();
   }
 
-  function clearLog(){
-    log = [];
-    render();
-  }
+  function clearLog(){ log = []; render(); }
 
   function exportLog(){
     const blob = new Blob([JSON.stringify(log, null, 2)], {type:"application/json"});
@@ -720,11 +715,16 @@
     URL.revokeObjectURL(url);
   }
 
-  // wire events
   ["hwpDeg","qpDeg","alphaDeg","betaDeg","pairRate","bgRate","timeS","vis","seed"].forEach(id=>{
     el(id).addEventListener("input", render);
   });
-  ui.btnMeasureVV.addEventListener("click", runMeasureVV);
+
+  ui.btnMeasureVV.addEventListener("click", ()=>runMeasureConfig("VV", 0, 0));
+  ui.btnMeasureHV.addEventListener("click", ()=>runMeasureConfig("HV", 90, 0));
+  ui.btnMeasureVH.addEventListener("click", ()=>runMeasureConfig("VH", 0, 90));
+  ui.btnMeasureHH.addEventListener("click", ()=>runMeasureConfig("HH", 90, 90));
+  ui.btnMeasureAll.addEventListener("click", runMeasureAllFour);
+
   ui.btnMeasureE.addEventListener("click", runMeasureE);
   ui.btnMeasureS.addEventListener("click", runMeasureS);
   ui.btnReset.addEventListener("click", reset);
