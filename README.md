@@ -1,1 +1,1 @@
-## Open up the simulator by downloading the html file and opening it in your browser (tested using google chrome).
+## Open up the simulator by downloading the html file and opening it in your browser (tested using google chrome).  No need to download any of the python files or even install python, the simulation runs using javascript in your browser.
